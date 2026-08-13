@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Yeongwol High School — Grade 1 Common English 2 Speaking Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f4f8ea;
+    --bg-deep: #e7f0d8;
+    --card: #ffffff;
+    --card-soft: #f1f6e6;
+    --forest: #2f4a26;
+    --moss: #4c7a3d;
+    --moss-dark: #3a6130;
+    --sage: #8faf7b;
+    --leaf: #b9d99b;
+    --leaf-pale: #dcecc9;
+    --text: #263420;
+    --text-muted: #5f7052;
+    --gold: #d9a441;
+    --clay: #c85c3f;
+    --line: #d3e2bd;
+    --shadow: 0 10px 30px -12px rgba(47,74,38,0.25);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 500px at 10% -10%, var(--bg-deep), transparent 60%),
+      radial-gradient(900px 400px at 100% 0%, #eef5df, transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', system-ui, sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces', serif;}
+  .wrap{max-width:1040px;margin:0 auto;padding:28px 20px 80px;}
+
+  /* ---------- HEADER ---------- */
+  header.site{padding:6px 0 22px;border-bottom:1px solid var(--line);margin-bottom:26px;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--moss-dark);
+    background:var(--leaf-pale);
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:100px;
+    margin-bottom:14px;
+    border:1px solid var(--leaf);
+  }
+  h1.title{
+    font-size:clamp(26px,4vw,38px);
+    font-weight:600;
+    line-height:1.15;
+    color:var(--forest);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--text-muted);font-size:15px;max-width:640px;line-height:1.55;margin:0;}
+
+  /* ---------- EXPRESSION BANK ---------- */
+  .bank{margin:26px 0 30px;}
+  .bank-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--moss-dark);margin-bottom:10px;font-weight:600;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    background:var(--card);
+    border:1px solid var(--line);
+    color:var(--forest);
+    padding:7px 13px;
+    border-radius:9px;
+    font-size:13.5px;
+    font-weight:500;
+    display:flex;align-items:center;gap:7px;
+    transition:all .2s ease;
+  }
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);flex:none;}
+  .chip.active{background:var(--forest);color:#fff;border-color:var(--forest);box-shadow:var(--shadow);}
+  .chip.active .dot{background:var(--gold);}
+
+  /* ---------- VINE PROGRESS ---------- */
+  .vine-wrap{
+    position:relative;margin:8px 0 34px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px 18px 12px;
+    box-shadow:var(--shadow);
+  }
+  .vine-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+  .vine-top .card-count{font-family:'Fraunces',serif;font-weight:600;color:var(--forest);font-size:18px;}
+  .vine-top .card-count span{color:var(--sage);font-weight:400;font-size:15px;}
+  .vine-scroll{overflow-x:auto;padding-bottom:4px;}
+  .vine-track{display:flex;align-items:center;gap:2px;min-width:max-content;padding:4px 2px;}
+  .leaf-node{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--leaf-pale);
+    border:2px solid var(--leaf);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:9.5px;color:var(--moss-dark);
+    cursor:pointer;flex:none;
+    transition:all .2s ease;
+    position:relative;
+  }
+  .leaf-node.done{background:var(--moss);border-color:var(--moss-dark);color:#fff;}
+  .leaf-node.current{
+    background:var(--forest);border-color:var(--forest);color:#fff;
+    transform:scale(1.25);
+    box-shadow:0 0 0 4px rgba(76,122,61,0.22);
+  }
+  .stem{width:16px;height:2px;background:var(--leaf);flex:none;}
+  .stem.done{background:var(--moss);}
+
+  /* ---------- CARD ---------- */
+  .card-stage{position:relative;min-height:2px;}
+  .practice-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:30px 30px 26px;
+    box-shadow:var(--shadow);
+    animation:riseIn .35s ease;
+  }
+  @keyframes riseIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:6px;}
+  .card-num{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sage);
+    letter-spacing:.06em;text-transform:uppercase;font-weight:600;
+  }
+  .scene-title{
+    font-size:clamp(19px,2.6vw,24px);
+    font-weight:600;color:var(--forest);margin:4px 0 12px;line-height:1.3;
+  }
+  .scene-text{font-size:15px;line-height:1.65;color:var(--text);margin:0 0 18px;}
+  .target-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .target-label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;
+    letter-spacing:.06em;color:var(--sage);font-weight:700;margin:0 0 8px;
+  }
+  .target-pill{
+    background:var(--leaf-pale);border:1px solid var(--leaf);color:var(--moss-dark);
+    padding:5px 12px;border-radius:100px;font-size:12.5px;font-weight:600;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .target-pill::before{content:'💡 ';}
+  .target-hint{font-size:12.5px;color:var(--text-muted);margin:0 0 20px;line-height:1.5;}
+
+  .rec-panel{
+    background:var(--card-soft);
+    border:1px dashed var(--sage);
+    border-radius:14px;
+    padding:18px 20px;
+    margin-bottom:18px;
+  }
+  .rec-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .mic-btn{
+    width:56px;height:56px;border-radius:50%;
+    border:none;cursor:pointer;
+    background:var(--forest);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 16px -4px rgba(47,74,38,0.5);
+    transition:transform .15s ease, background .2s ease;
+    flex:none;
+  }
+  .mic-btn:hover{transform:scale(1.05);}
+  .mic-btn.recording{background:var(--clay);animation:pulse 1.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(200,92,63,0.45);}70%{box-shadow:0 0 0 14px rgba(200,92,63,0);}100%{box-shadow:0 0 0 0 rgba(200,92,63,0);}}
+  .rec-status{font-size:13.5px;color:var(--text-muted);font-weight:500;}
+  .rec-status.live{color:var(--clay);font-weight:600;}
+  .transcript-box{
+    margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;min-height:56px;font-size:14.5px;line-height:1.6;color:var(--text);
+  }
+  .transcript-box.placeholder{color:#a9b89a;font-style:italic;}
+  .fallback-note{font-size:12.5px;color:var(--text-muted);margin-top:10px;line-height:1.5;}
+  textarea.type-fallback{
+    width:100%;margin-top:10px;border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;font-family:'Inter',sans-serif;font-size:14.5px;color:var(--text);
+    resize:vertical;min-height:70px;
+  }
+
+  .actions-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px;}
+  .btn{
+    border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;
+    padding:11px 20px;border-radius:10px;font-size:14px;transition:all .15s ease;
+  }
+  .btn-primary{background:var(--forest);color:#fff;}
+  .btn-primary:hover{background:var(--moss-dark);}
+  .btn-primary:disabled{background:#c9d6ba;cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--moss-dark);border:1px solid var(--line);}
+  .btn-ghost:hover{background:var(--leaf-pale);}
+  .nav-btns{display:flex;gap:8px;}
+
+  /* ---------- FEEDBACK ---------- */
+  .feedback{
+    margin-top:20px;border-radius:14px;padding:20px 22px;
+    background:linear-gradient(180deg, var(--card-soft), #fff);
+    border:1px solid var(--leaf);
+    animation:riseIn .3s ease;
+  }
+  .feedback-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .feedback-head .badge{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+    padding:4px 10px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .badge.appropriate{background:#e3f1d8;color:var(--moss-dark);border:1px solid var(--leaf);}
+  .badge.needs-work{background:#fbe9df;color:#a3502f;border:1px solid #edbfa3;}
+  .feedback-head h3{margin:0;font-size:17px;color:var(--forest);}
+  .used-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+  .used-pill{
+    font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:600;
+    padding:4px 10px;border-radius:100px;border:1px solid;
+  }
+  .used-pill.yes{background:#e3f1d8;border-color:var(--leaf);color:var(--moss-dark);}
+  .used-pill.no{background:#f5f0e6;border-color:#e3d8bf;color:#9a7f3f;}
+  .feedback-body p{font-size:14.5px;line-height:1.7;color:var(--text);margin:0 0 10px;}
+  .feedback-section-label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;
+    letter-spacing:.06em;color:var(--sage);font-weight:700;margin:14px 0 4px;
+  }
+  .loading-row{display:flex;align-items:center;gap:10px;color:var(--text-muted);font-size:14px;padding:8px 0;}
+  .spinner{width:16px;height:16px;border-radius:50%;border:2.5px solid var(--leaf);border-top-color:var(--forest);animation:spin .7s linear infinite;flex:none;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  footer.site{margin-top:44px;text-align:center;color:var(--text-muted);font-size:12.5px;}
+
+  .vine-scroll{-webkit-overflow-scrolling:touch;}
+
+  @media (max-width:560px){
+    .wrap{padding:18px 14px 60px;}
+    header.site{padding:4px 0 16px;margin-bottom:18px;}
+    .practice-card{padding:20px 16px 18px;border-radius:16px;}
+    .scene-title{font-size:20px;}
+    .scene-text{font-size:14.5px;}
+    .actions-row{flex-direction:column;align-items:stretch;}
+    .nav-btns{justify-content:space-between;}
+    .btn{padding:13px 18px;font-size:14.5px;}
+    .mic-btn{width:64px;height:64px;}
+    .rec-panel{padding:16px 14px;}
+    .rec-row{gap:12px;}
+    .vine-wrap{padding:14px 12px 10px;border-radius:14px;}
+    .leaf-node{width:26px;height:26px;font-size:10px;}
+    textarea.type-fallback{font-size:16px;}
+    .transcript-box{font-size:15px;}
+    .chip{font-size:13px;padding:6px 11px;}
+  }
+
+  @media (max-width:380px){
+    .card-count{font-size:16px !important;}
+    .target-pill{font-size:11.5px;padding:4px 9px;}
+  }
+
+  /* larger, easier-to-tap controls on touch devices */
+  @media (hover:none) and (pointer:coarse){
+    .mic-btn{width:66px;height:66px;}
+    .btn{min-height:46px;}
+    .leaf-node{width:26px;height:26px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site">
+    <span class="eyebrow">2026 · Yeongwol High School · Grade 1 · 공통영어2</span>
+    <h1 class="title">Speaking Performance Assessment</h1>
+    <p class="subtitle">Practice using the eight target expressions in real conversations. Flip through the situation cards, speak your answer out loud, and get written feedback on whether your English sounds natural and appropriate for the context.</p>
+  </header>
+
+  <div class="bank">
+    <div class="bank-label">Target Expressions</div>
+    <div class="chips" id="chipRow"></div>
+  </div>
+
+  <div class="vine-wrap">
+    <div class="vine-top">
+      <div class="card-count">Card <span id="curNum">1</span><span> / 20</span></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--sage);" id="doneCount">0 completed</div>
+    </div>
+    <div class="vine-scroll">
+      <div class="vine-track" id="vineTrack"></div>
+    </div>
+  </div>
+
+  <div class="card-stage" id="cardStage"></div>
+
+  <footer class="site">2026 영월고 1학년 공통영어2 Speaking 수행평가 · Practice tool for classroom use</footer>
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const EXPRESSIONS = [
+  "Remember to",
+  "I'm quite sure",
+  "In my opinion",
+  "Let's talk about",
+  "In Korean we say",
+  "I'm surprised that",
+  "It is important to",
+  "I'm planning to"
+];
+
+const CARDS = [
+  {title:"Packing List for a Foreign Exchange Student", context:"Your school is hosting a student from Canada who will join your class trip to Gangwon-do next week. She asks you what she should bring. Give her advice.", targets:["Remember to","It is important to"]},
+  {title:"Surprising School Lunch", context:"Your American pen pal asks about Korean school lunches after you mention they're very different from what she eats. Tell her something that surprised you and explain a related Korean phrase.", targets:["I'm surprised that","In Korean we say"]},
+  {title:"Weekend Plans with the New Teacher", context:"A new foreign English teacher asks what you're doing this weekend. Tell them your plans and how confident you feel about them.", targets:["I'm planning to","I'm quite sure"]},
+  {title:"Debate Club: School Uniforms", context:"In debate club, the topic today is 'Should school uniforms be optional?' Share your opinion and explain why it matters.", targets:["In my opinion","It is important to"]},
+  {title:"Introducing a Korean Proverb", context:"During an English presentation, you want to introduce a Korean proverb about effort and hard work to your foreign classmates, then explain what you think about it.", targets:["In Korean we say","In my opinion"]},
+  {title:"Talking About K-pop with a Visitor", context:"A visiting student from Australia notices your K-pop photocard collection. Start a conversation about your favorite group and share something that surprised you about them.", targets:["Let's talk about","I'm surprised that"]},
+  {title:"Helping with the Bus Card", context:"A new international student doesn't know how to use a T-money bus card. Explain the steps and reassure them.", targets:["Remember to","I'm quite sure"]},
+  {title:"Career Counseling Session", context:"Your career counselor asks about your future plans after high school. Explain what you're planning to do and why it matters.", targets:["I'm planning to","It is important to"]},
+  {title:"A Surprising Exam Result", context:"You got your English exam back and the score surprised you. Talk to your friend about your reaction and your opinion on why it happened.", targets:["I'm surprised that","In my opinion"]},
+  {title:"Explaining Seollal Customs", context:"A foreign friend online wants to know about Korean New Year (Seollal). Explain a custom and a Korean expression related to it, then suggest what to discuss next.", targets:["In Korean we say","Let's talk about"]},
+  {title:"Tips for a Freshman", context:"A younger student new to your school asks how to take good notes in class. Give helpful, important advice.", targets:["Remember to","It is important to"]},
+  {title:"Club Meeting: Environmental Issues", context:"At your environmental club meeting, you want to bring up a new topic and share your view on it.", targets:["Let's talk about","In my opinion"]},
+  {title:"Study Plan Before Exams", context:"Your friend asks how you're preparing for the upcoming midterms. Describe your plan and how confident you feel.", targets:["I'm planning to","I'm quite sure"]},
+  {title:"A Friend's Hidden Talent", context:"You just found out your quiet classmate can play the violin beautifully. React to a friend about how surprised you are, and share how sure you are about something related.", targets:["I'm surprised that","I'm quite sure"]},
+  {title:"Teaching a Korean Saying About Effort", context:"A foreign exchange student wants to learn a Korean saying that motivates you to study. Teach it to them and explain why it matters.", targets:["In Korean we say","It is important to"]},
+  {title:"School Festival Team Roles", context:"Your class is organizing a booth for the school festival. Bring up the topic of assigning roles and share what you plan to do.", targets:["Let's talk about","I'm planning to"]},
+  {title:"Safety Reminder Before a Mountain Trip", context:"Your class is going on a hiking trip this Friday. Remind your classmates what to prepare and reassure them it will be safe.", targets:["Remember to","I'm quite sure"]},
+  {title:"Smartphones in Class", context:"Your English teacher asks the class for opinions on using smartphones during lessons. Share your view and explain why it's important.", targets:["In my opinion","It is important to"]},
+  {title:"Surprising Schedule Change", context:"You just heard that final exams were moved a week earlier. React to a classmate and suggest discussing how to adjust study plans.", targets:["I'm surprised that","Let's talk about"]},
+  {title:"Summer Vacation Plans with a Cousin", context:"Your cousin who lives abroad asks about your summer vacation plans. Tell them what you're planning to do and mention a related Korean expression.", targets:["I'm planning to","In Korean we say"]}
+];
+
+/* ---------------- STATE ---------------- */
+let currentIndex = 0;
+const state = CARDS.map(()=>({transcript:"", feedback:null, done:false, recording:false}));
+let recognition = null;
+let speechSupported = false;
+
+/* ---------------- RENDER: EXPRESSION CHIPS ---------------- */
+const chipRow = document.getElementById('chipRow');
+function renderChips(activeTargets){
+  chipRow.innerHTML = EXPRESSIONS.map(e=>{
+    const isActive = activeTargets && activeTargets.includes(e);
+    return `<div class="chip ${isActive?'active':''}"><span class="dot"></span>${e}</div>`;
+  }).join('');
+}
+
+/* ---------------- RENDER: VINE ---------------- */
+const vineTrack = document.getElementById('vineTrack');
+function renderVine(){
+  let html = '';
+  CARDS.forEach((c,i)=>{
+    const cls = i===currentIndex ? 'current' : (state[i].done ? 'done' : '');
+    html += `<div class="leaf-node ${cls}" data-idx="${i}" title="Card ${i+1}: ${c.title}">${i+1}</div>`;
+    if(i < CARDS.length-1){
+      html += `<div class="stem ${state[i].done ? 'done':''}"></div>`;
+    }
+  });
+  vineTrack.innerHTML = html;
+  vineTrack.querySelectorAll('.leaf-node').forEach(node=>{
+    node.addEventListener('click', ()=>{ goTo(parseInt(node.dataset.idx)); });
+  });
+  document.getElementById('curNum').textContent = currentIndex+1;
+  document.getElementById('doneCount').textContent = state.filter(s=>s.done).length + " completed";
+}
+
+/* ---------------- SPEECH RECOGNITION SETUP ---------------- */
+function initRecognition(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR) return false;
+  try{
+    recognition = new SR();
+    recognition.lang = 'en-US';
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    return true;
+  }catch(e){ return false; }
+}
+speechSupported = initRecognition();
+
+/* ---------------- RENDER: CARD ---------------- */
+const cardStage = document.getElementById('cardStage');
+
+function renderCard(){
+  const card = CARDS[currentIndex];
+  const s = state[currentIndex];
+  renderChips(card.targets);
+
+  cardStage.innerHTML = `
+    <div class="practice-card">
+      <div class="card-top">
+        <div class="card-num">Situation ${currentIndex+1} of 20</div>
+      </div>
+      <h2 class="scene-title">${card.title}</h2>
+      <p class="scene-text">${card.context}</p>
+      <div class="target-label">Suggested expressions (optional)</div>
+      <div class="target-row">
+        ${card.targets.map(t=>`<span class="target-pill">${t}</span>`).join('')}
+      </div>
+      <p class="target-hint">These are just suggestions to help you get started — feel free to use other target expressions instead, mix in more than two, or respond in your own natural way. Your feedback will focus on whether your answer fits the situation and sounds natural.</p>
+
+      <div class="rec-panel">
+        <div class="rec-row">
+          <button class="mic-btn" id="micBtn" aria-label="Start recording">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" id="micIcon">
+              <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z" stroke="white" stroke-width="1.8"/>
+              <path d="M19 11a7 7 0 0 1-14 0M12 18v3" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <div>
+            <div class="rec-status" id="recStatus">${speechSupported ? 'Tap the mic and speak your answer' : 'Speech recognition unavailable — type your spoken answer below'}</div>
+          </div>
+        </div>
+        <div class="transcript-box ${s.transcript ? '' : 'placeholder'}" id="transcriptBox">${s.transcript ? s.transcript : 'Your spoken answer will appear here…'}</div>
+        ${!speechSupported ? `<textarea class="type-fallback" id="typeFallback" placeholder="Type what you would say out loud, then submit for feedback.">${s.transcript||''}</textarea>
+        <div class="fallback-note">Note: this browser doesn't support live speech recognition. Say your answer aloud to practice, then type it here for feedback.</div>` : ''}
+      </div>
+
+      <div class="actions-row">
+        <div class="nav-btns">
+          <button class="btn btn-ghost" id="prevBtn" ${currentIndex===0?'disabled':''}>← Previous</button>
+          <button class="btn btn-ghost" id="nextBtn" ${currentIndex===CARDS.length-1?'disabled':''}>Next →</button>
+        </div>
+        <button class="btn btn-primary" id="submitBtn">Get Feedback</button>
+      </div>
+
+      <div id="feedbackZone"></div>
+    </div>
+  `;
+
+  document.getElementById('prevBtn').onclick = ()=>goTo(currentIndex-1);
+  document.getElementById('nextBtn').onclick = ()=>goTo(currentIndex+1);
+  document.getElementById('submitBtn').onclick = handleSubmit;
+
+  if(speechSupported){
+    document.getElementById('micBtn').onclick = toggleRecording;
+  }else{
+    const ta = document.getElementById('typeFallback');
+    ta.addEventListener('input', ()=>{ s.transcript = ta.value; });
+  }
+
+  if(s.feedback){
+    renderFeedback(s.feedback);
+  }
+
+  renderVine();
+}
+
+/* ---------------- RECORDING ---------------- */
+function toggleRecording(){
+  const s = state[currentIndex];
+  const micBtn = document.getElementById('micBtn');
+  const status = document.getElementById('recStatus');
+  const box = document.getElementById('transcriptBox');
+
+  if(s.recording){
+    recognition.stop();
+    return;
+  }
+
+  let finalText = s.transcript || '';
+
+  recognition.onstart = ()=>{
+    s.recording = true;
+    micBtn.classList.add('recording');
+    status.textContent = 'Listening… tap again to stop';
+    status.classList.add('live');
+  };
+
+  recognition.onresult = (event)=>{
+    let interim = '';
+    for(let i=event.resultIndex;i<event.results.length;i++){
+      const t = event.results[i][0].transcript;
+      if(event.results[i].isFinal){ finalText += (finalText?' ':'') + t.trim(); }
+      else{ interim += t; }
+    }
+    const display = (finalText + ' ' + interim).trim();
+    box.textContent = display || 'Listening…';
+    box.classList.remove('placeholder');
+    s.transcript = finalText.trim();
+  };
+
+  recognition.onerror = (e)=>{
+    status.textContent = 'Microphone unavailable in this browser/window. Please type your answer instead.';
+    status.classList.remove('live');
+    micBtn.classList.remove('recording');
+    s.recording = false;
+    speechSupported = false;
+    renderCard();
+  };
+
+  recognition.onend = ()=>{
+    s.recording = false;
+    micBtn.classList.remove('recording');
+    status.textContent = s.transcript ? 'Recording stopped. Ready to submit.' : 'Tap the mic and speak your answer';
+    status.classList.remove('live');
+  };
+
+  try{
+    recognition.start();
+  }catch(e){
+    status.textContent = 'Could not access the microphone. Please type your answer instead.';
+    speechSupported = false;
+    renderCard();
+  }
+}
+
+/* ---------------- GO TO CARD ---------------- */
+function goTo(idx){
+  if(idx<0 || idx>=CARDS.length) return;
+  if(recognition && state[currentIndex].recording){ recognition.stop(); }
+  currentIndex = idx;
+  renderCard();
+}
+
+/* ---------------- SUBMIT FOR FEEDBACK ---------------- */
+async function handleSubmit(){
+  const s = state[currentIndex];
+  const card = CARDS[currentIndex];
+  const transcript = (s.transcript||'').trim();
+  const zone = document.getElementById('feedbackZone');
+  const submitBtn = document.getElementById('submitBtn');
+
+  if(!transcript){
+    zone.innerHTML = `<div class="feedback"><p style="color:#a3502f;margin:0;font-size:14px;">Please record or type your spoken answer before submitting.</p></div>`;
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Evaluating…';
+  zone.innerHTML = `<div class="loading-row"><div class="spinner"></div>Reading your answer and preparing feedback…</div>`;
+
+  const prompt = `You are an English speaking coach for Korean 10th-grade (high school grade 1) EFL students. A student was given the following situation and asked to respond ORALLY in English. The course is teaching 8 target expressions, and for each situation a couple of them are SUGGESTED as a natural fit — but using them is OPTIONAL, not required. The student is free to use other target expressions, more than the suggested ones, or none at all, as long as the response fits the situation and sounds natural.
+
+SITUATION TITLE: ${card.title}
+SITUATION CONTEXT: ${card.context}
+
+FULL LIST OF 8 TARGET EXPRESSIONS THE COURSE IS TEACHING: ${EXPRESSIONS.join(', ')}
+EXPRESSIONS SUGGESTED (OPTIONAL, NOT REQUIRED) FOR THIS SITUATION: ${card.targets.join(', ')}
+
+STUDENT'S SPOKEN ANSWER (transcribed): "${transcript}"
+
+Evaluate the student's answer. Your primary judgment of "appropriate" must be based ONLY on whether the response fits the situation and sounds natural/grammatical — do NOT mark it as not appropriate just because the student skipped the suggested expressions or used different ones. Treat expression use as a separate, bonus observation, not a pass/fail criterion. Respond with ONLY a valid JSON object, no markdown fences, no extra text, in exactly this shape:
+{
+  "appropriate": true or false (based purely on contextual fit and naturalness of the English, regardless of which expressions were or weren't used),
+  "usedExpressions": [array of strings from the FULL 8-expression list that the student actually used or clearly attempted anywhere in their answer, even with minor errors — this can be empty, can include expressions other than the suggested ones, and is informational only],
+  "summary": "one short encouraging sentence (max 20 words) summarizing the overall impression",
+  "strengths": "2-3 sentences in simple, encouraging English describing what the student did well, referencing specific words they said",
+  "improvements": "2-3 sentences in simple, encouraging English pointing out anything awkward, unnatural, grammatically off, or contextually mismatched, with a suggested more natural phrasing if relevant. If there is nothing to improve, say so warmly.",
+  "expressionsNote": "one short, encouraging sentence noting which target expressions (if any) the student used well, or gently suggesting one target expression they could try weaving in next time — framed as a tip, never as something they failed to do",
+  "modelSentence": "one short natural example sentence (using at least one target expression) that would fit this exact situation well, for the student to compare against"
+}
+Keep all text in clear, simple English suitable for a Korean high school student to read. Do not use markdown formatting inside the JSON string values.`;
+
+  try{
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    const data = await response.json();
+    let text = data.content.map(b=>b.text||'').join('').trim();
+    text = text.replace(/^```json/i,'').replace(/^```/,'').replace(/```$/,'').trim();
+    const parsed = JSON.parse(text);
+    s.feedback = parsed;
+    s.done = true;
+    renderFeedback(parsed);
+    renderVine();
+  }catch(err){
+    zone.innerHTML = `<div class="feedback"><p style="color:#a3502f;margin:0;font-size:14px;">Something went wrong while getting feedback. Please try submitting again.</p></div>`;
+    console.error(err);
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Get Feedback';
+  }
+}
+
+function renderFeedback(fb){
+  const zone = document.getElementById('feedbackZone');
+  const used = fb.usedExpressions || [];
+  const usedRow = used.length
+    ? used.map(e=>`<span class="used-pill yes">✓ ${e}</span>`).join('')
+    : `<span class="used-pill no">No target expressions detected this time — that's okay!</span>`;
+
+  zone.innerHTML = `
+    <div class="feedback">
+      <div class="feedback-head">
+        <span class="badge ${fb.appropriate ? 'appropriate' : 'needs-work'}">${fb.appropriate ? 'Appropriate' : 'Needs Work'}</span>
+        <h3>${fb.summary || 'Feedback'}</h3>
+      </div>
+      <div class="feedback-section-label">Target expressions you used (optional, informational)</div>
+      <div class="used-row">${usedRow}</div>
+      <div class="feedback-body">
+        <div class="feedback-section-label">What you did well</div>
+        <p>${fb.strengths || ''}</p>
+        <div class="feedback-section-label">What to improve</div>
+        <p>${fb.improvements || ''}</p>
+        ${fb.expressionsNote ? `<div class="feedback-section-label">Expression tip</div><p>${fb.expressionsNote}</p>` : ''}
+        <div class="feedback-section-label">Model sentence for this situation</div>
+        <p style="font-style:italic;color:var(--forest);">${fb.modelSentence || ''}</p>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------------- INIT ---------------- */
+renderCard();
+</script>
+</body>
+</html>
